@@ -90,7 +90,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Where's everyone at?</h1>
+      <h1>Hello World!</h1>
       {counter !== 0 ? (
         <p>
           <b>{counter}</b> {counter === 1 ? "person" : "people"} connected.
@@ -107,7 +107,7 @@ function App() {
 
       {/* Let's give some credit */}
       <p>
-        Powered by <a href="https://visitor-globe-worker.jessejesse.workers.dev/">🌏 JesseJesse.Workers.dev</a>,{" "}
+      <a href="https://visitor-globe-worker.jessejesse.workers.dev/">JesseJesse.Workers.dev</a>,{" "}
       </p>
     </div>
   );

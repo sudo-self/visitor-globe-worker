@@ -78,7 +78,7 @@ function App() {
       <div className="globe-container">
 <h1 className="title">
   <span className="pulse-dot" />&nbsp;
-  globe.JesseJesse.com</span>
+  globe.JesseJesse.com
 </h1>
 
 

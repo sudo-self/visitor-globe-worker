@@ -44,23 +44,27 @@ body {
   align-items: center;
 }
 
-/* Canvas styling with guaranteed centering */
 .canvas-wrapper {
   position: relative;
   width: 100%;
-  max-width: min(100vw, 600px);
+  max-width: 600px;
   margin: 0 auto;
 }
 
 .globe-canvas {
   width: 100%;
   height: auto;
-  aspect-ratio: 1;
   display: block;
-  margin: 0 auto;
-  border-radius: 50%;
-  box-shadow: 0 0 50px rgba(255, 159, 28, 0.2);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
+}
+
+.canvas-wrapper.hovered .globe-canvas {
+  transform: scale(1.02);
+}
+
+/* Add this to prevent layout shift */
+.counter, .counter-placeholder {
+  min-height: 1.5em;
 }
 
 /* Text elements */

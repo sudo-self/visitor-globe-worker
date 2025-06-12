@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import createGlobe from "cobe";
 import usePartySocket from "partysocket/react";
 
-// The type of messages we'll be receiving from the server
+
 import type { OutgoingMessage } from "../shared";
 import type { LegacyRef } from "react";
 
@@ -37,7 +37,7 @@ function App() {
         });
         setCounter((c) => c + 1);
         
-        // Show recent connection notification
+     
         setRecentConnection(message.position.id);
         setTimeout(() => {
           setRecentConnection(null);
@@ -71,11 +71,11 @@ function App() {
       onRender: (state) => {
         state.markers = [...positions.current.values()];
         
-        // Adjust rotation speed based on hover
+    
         rotationSpeed = isHovered ? 0.005 : 0.01;
         phi += rotationSpeed;
         
-        // Add slight bobbing effect
+
         state.theta = 0.3 + Math.sin(phi * 2) * 0.05;
         state.phi = phi;
       },

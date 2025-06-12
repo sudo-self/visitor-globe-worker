@@ -110,7 +110,7 @@ function App() {
           <p>
             globe.<a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener">JesseJesse.com</a>
           </p>
-          <p className="hint">Hover over the globe to slow rotation</p>
+          <p className="hint"></p>
         </div>
       </div>
     </div>

@@ -77,7 +77,7 @@ function App() {
     <div className="app-container">
       <div className="globe-container">
         <h1 className="title">
-          JesseJesse.com
+         Cloudflared Workers
           <span className="pulse-dot" />
         </h1>
 
@@ -108,7 +108,7 @@ function App() {
 
         <div className="footer">
           <p>
-            Powered by <a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener">JesseJesse.Workers.dev</a>
+            globe.<a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener">JesseJesse.com</a>
           </p>
           <p className="hint">Hover over the globe to slow rotation</p>
         </div>

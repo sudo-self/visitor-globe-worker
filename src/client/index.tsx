@@ -77,11 +77,10 @@ function App() {
     <div className="app-container">
       <div className="globe-container">
 <h1 className="title">
-   <p>  <span className="pulse-dot" />&nbsp;
-            globe.<a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener">JesseJesse.com</a>
-          </p>
-
+  <span className="pulse-dot" />&nbsp;
+  globe.<a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener">JesseJesse.com</a>
 </h1>
+
 
 
         {counter > 0 ? (
@@ -122,7 +121,6 @@ function App() {
       style={{ height: '32px' }}
     />
   </a>
-          <p className="hint"></p>
         </div>
       </div>
     </div>

@@ -77,18 +77,10 @@ function App() {
     <div className="app-container">
       <div className="globe-container">
 <h1 className="title">
-  <a
-    href="https://deploy.workers.cloudflare.com/?url=https://github.com/sudo-self/visitor_globe_worker"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{ display: 'inline-block', marginLeft: '10px', verticalAlign: 'middle' }}
-  >
-    <img
-      src="https://deploy.workers.cloudflare.com/button"
-      alt="Deploy to Cloudflare Workers"
-      style={{ height: '32px' }}
-    />
-  </a>
+   <p>  <span className="pulse-dot" />&nbsp;
+            globe.<a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener">JesseJesse.com</a>
+          </p>
+
 </h1>
 
 
@@ -118,9 +110,18 @@ function App() {
         )}
 
         <div className="footer">
-          <p>  <span className="pulse-dot" />&nbsp;
-            globe.<a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener">JesseJesse.com</a>
-          </p>
+          <a
+    href="https://deploy.workers.cloudflare.com/?url=https://github.com/sudo-self/visitor_globe_worker"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ display: 'inline-block', marginLeft: '10px', verticalAlign: 'middle' }}
+  >
+    <img
+      src="https://deploy.workers.cloudflare.com/button"
+      alt="Deploy to Cloudflare Workers"
+      style={{ height: '32px' }}
+    />
+  </a>
           <p className="hint"></p>
         </div>
       </div>

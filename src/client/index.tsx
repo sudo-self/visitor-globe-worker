@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import createGlobe from "cobe";
 import usePartySocket from "partysocket/react";
-import { motion, AnimatePresence } from "framer-motion";
 
 // The type of messages we'll be receiving from the server
 import type { OutgoingMessage } from "../shared";
@@ -14,7 +13,7 @@ function App() {
   const canvasRef = useRef<HTMLCanvasElement>();
   const [counter, setCounter] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const [recentConnections, setRecentConnections] = useState<string[]>([]);
+  const [recentConnection, setRecentConnection] = useState<string | null>(null);
   
   const positions = useRef<
     Map<
@@ -38,10 +37,10 @@ function App() {
         });
         setCounter((c) => c + 1);
         
-        // Add to recent connections with timeout
-        setRecentConnections(prev => [...prev, message.position.id]);
+        // Show recent connection notification
+        setRecentConnection(message.position.id);
         setTimeout(() => {
-          setRecentConnections(prev => prev.filter(id => id !== message.position.id));
+          setRecentConnection(null);
         }, 3000);
       } else {
         positions.current.delete(message.id);
@@ -87,89 +86,44 @@ function App() {
 
   return (
     <div className="app-container">
-      <motion.div 
-        className="globe-container"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-      >
-        <motion.h1 
-          className="title"
-          initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}
-          transition={{ 
-            duration: 2,
-            repeat: Infinity,
-            repeatType: "reverse"
-          }}
-        >
+      <div className="globe-container">
+        <h1 className="title">
           Global Connections
-          <motion.span 
-            className="pulse-dot"
-            animate={{ 
-              scale: [1, 1.2, 1],
-              opacity: [0.8, 1, 0.8]
-            }}
-            transition={{ 
-              duration: 2,
-              repeat: Infinity 
-            }}
-          />
-        </motion.h1>
+          <span className="pulse-dot" />
+        </h1>
 
-        <AnimatePresence>
-          {counter > 0 && (
-            <motion.p 
-              className="counter"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              key={counter}
-            >
-              <span className="highlight">{counter}</span> {counter === 1 ? "person is" : "people are"} connected right now
-            </motion.p>
-          )}
-        </AnimatePresence>
+        {counter > 0 ? (
+          <p className="counter">
+            <span className="highlight">{counter}</span> {counter === 1 ? "person is" : "people are"} connected right now
+          </p>
+        ) : (
+          <p className="counter-placeholder">&nbsp;</p>
+        )}
 
-        <motion.div
-          onHoverStart={() => setIsHovered(true)}
-          onHoverEnd={() => setIsHovered(false)}
-          whileHover={{ scale: 1.02 }}
+        <div
+          className={`globe-wrapper ${isHovered ? 'hovered' : ''}`}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           <canvas
             ref={canvasRef as LegacyRef<HTMLCanvasElement>}
             className="globe-canvas"
           />
-        </motion.div>
-
-        <div className="recent-connections">
-          <AnimatePresence>
-            {recentConnections.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="connection-notice"
-              >
-                New connection from {recentConnections[0].slice(0, 6)}...
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
 
-        <motion.div 
-          className="footer"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.7 }}
-          transition={{ delay: 1 }}
-          whileHover={{ opacity: 1 }}
-        >
+        {recentConnection && (
+          <div className="connection-notice">
+            New connection from {recentConnection.slice(0, 6)}...
+          </div>
+        )}
+
+        <div className="footer">
           <p>
             Powered by <a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener">JesseJesse.Workers.dev</a>
           </p>
           <p className="hint">Hover over the globe to slow rotation</p>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 }

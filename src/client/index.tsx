@@ -94,9 +94,7 @@ function App() {
 
         {counter > 0 ? (
           <p className="counter">
-            <span className="highlight">{counter}</span> 
-              <span className="pulse-dot" />
-            {counter === 1 ? "person is" : "people are"} connected right now
+            <span className="highlight">{counter}</span>  {counter === 1 ? "person is" : "people are"} connected right now
           </p>
         ) : (
           <p className="counter-placeholder">&nbsp;</p>
@@ -120,7 +118,7 @@ function App() {
         )}
 
         <div className="footer">
-          <p>
+          <p>  <span className="pulse-dot" />&nbsp;
             globe.<a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener">JesseJesse.com</a>
           </p>
           <p className="hint"></p>

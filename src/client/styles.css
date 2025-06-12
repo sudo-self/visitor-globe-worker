@@ -24,9 +24,10 @@ body {
 .app-container {
   width: 100%;
   max-width: 800px;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
   animation: fadeIn 1s ease-out;
+  box-sizing: border-box;
 }
 
 @keyframes fadeIn {
@@ -35,7 +36,7 @@ body {
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   margin-bottom: 1rem;
   font-weight: 700;
   background: linear-gradient(90deg, var(--primary-color), var(--highlight-color));
@@ -45,6 +46,7 @@ body {
   position: relative;
   display: inline-block;
   animation: pulseScale 2s infinite alternate;
+  padding: 0 1rem;
 }
 
 @keyframes pulseScale {
@@ -70,14 +72,15 @@ body {
 }
 
 .counter {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  margin-bottom: 1.5rem;
   animation: fadeIn 0.5s ease-out;
+  padding: 0 1rem;
 }
 
 .counter-placeholder {
-  height: 1.2rem;
-  margin-bottom: 2rem;
+  height: clamp(1rem, 3vw, 1.2rem);
+  margin-bottom: 1.5rem;
   visibility: hidden;
 }
 
@@ -88,8 +91,12 @@ body {
 }
 
 .globe-wrapper {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
   transition: transform 0.3s ease;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .globe-wrapper.hovered {
@@ -98,7 +105,8 @@ body {
 
 .globe-canvas {
   width: 100%;
-  max-width: 600px;
+  max-width: 100%;
+  height: auto;
   aspect-ratio: 1;
   cursor: grab;
   transition: all 0.3s ease;
@@ -111,11 +119,12 @@ body {
 }
 
 .footer {
-  margin-top: 2rem;
-  font-size: 0.9rem;
+  margin-top: 1.5rem;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem);
   color: rgba(255, 255, 255, 0.7);
   transition: opacity 0.3s ease;
   opacity: 0.7;
+  padding: 0 1rem;
 }
 
 .footer:hover {
@@ -133,7 +142,7 @@ body {
 }
 
 .hint {
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 2vw, 0.8rem);
   margin-top: 0.5rem;
   opacity: 0.6;
   font-style: italic;
@@ -144,10 +153,11 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 20px;
   display: inline-block;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem);
   border: 1px solid rgba(0, 78, 137, 0.5);
   margin-top: 1rem;
   animation: fadeInOut 3s forwards;
+  max-width: 90%;
 }
 
 @keyframes fadeInOut {
@@ -155,4 +165,27 @@ body {
   20% { opacity: 1; transform: translateY(0); }
   80% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 600px) {
+  .app-container {
+    padding: 0.5rem;
+  }
+  
+  .title {
+    margin-bottom: 0.8rem;
+  }
+  
+  .counter, .counter-placeholder {
+    margin-bottom: 1rem;
+  }
+  
+  .globe-wrapper {
+    padding: 0;
+  }
+  
+  .footer {
+    margin-top: 1rem;
+  }
 }

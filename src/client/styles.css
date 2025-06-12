@@ -1,50 +1,118 @@
-/* 
-  We've already included normalize.css. 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
-  But we'd like a modern looking boilerplate. 
-  Clean type, sans-serif, and a nice color palette. 
-  
-*/
+:root {
+  --primary-color: #ff6b35;
+  --secondary-color: #004e89;
+  --bg-color: #0f0f1a;
+  --text-color: #f8f9fa;
+  --highlight-color: #ff9f1c;
+}
 
 body {
-  font-family: sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #999;
-  background-color: black;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
   text-align: center;
-  padding-top: 40px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: sans-serif;
+.glow {
+  filter: drop-shadow(0 0 8px var(--highlight-color));
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--primary-color), var(--highlight-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+  display: inline-block;
+}
+
+.pulse-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--highlight-color);
+  border-radius: 50%;
+  margin-left: 10px;
+  filter: drop-shadow(0 0 4px var(--highlight-color));
+}
+
+.counter {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.highlight {
+  color: var(--highlight-color);
   font-weight: 600;
-  line-height: 1.25;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+  font-size: 1.4em;
 }
 
-#app {
-  padding: 1rem;
+.globe-canvas {
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1;
+  cursor: grab;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  box-shadow: 0 0 50px rgba(255, 159, 28, 0.2);
 }
 
-h1 {
-  color: white;
+.globe-canvas:hover {
+  box-shadow: 0 0 70px rgba(255, 159, 28, 0.4);
 }
 
-b {
-  color: white;
-  font-weight: bold;
+.footer {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  transition: opacity 0.3s ease;
 }
 
-a {
-  color: #ccc;
-  text-decoration-line: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: #555;
+.footer a {
+  color: var(--highlight-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.hint {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.recent-connections {
+  min-height: 24px;
+  margin-top: 1rem;
+}
+
+.connection-notice {
+  background: rgba(0, 78, 137, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+  font-size: 0.9rem;
+  border: 1px solid rgba(0, 78, 137, 0.5);
 }

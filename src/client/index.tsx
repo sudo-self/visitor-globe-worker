@@ -78,7 +78,7 @@ function App() {
       <div className="globe-container">
 <h1 className="title">
   <span className="pulse-dot" />&nbsp;
-  globe.<a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener">JesseJesse.com</a>
+  globe.JesseJesse.com</span>
 </h1>
 
 

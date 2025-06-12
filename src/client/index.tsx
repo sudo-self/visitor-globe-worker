@@ -76,10 +76,22 @@ function App() {
   return (
     <div className="app-container">
       <div className="globe-container">
-        <h1 className="title">
-         Cloudflared Workers
-          <span className="pulse-dot" />
-        </h1>
+<h1 className="title">
+  <span className="pulse-dot" />
+  <a
+    href="https://deploy.workers.cloudflare.com/?url=https://github.com/sudo-self/visitor_globe_worker"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ display: 'inline-block', marginLeft: '10px', verticalAlign: 'middle' }}
+  >
+    <img
+      src="https://deploy.workers.cloudflare.com/button"
+      alt="Deploy to Cloudflare Workers"
+      style={{ height: '32px' }}
+    />
+  </a>
+</h1>
+
 
         {counter > 0 ? (
           <p className="counter">

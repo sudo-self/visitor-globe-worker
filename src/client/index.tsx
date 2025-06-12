@@ -77,7 +77,6 @@ function App() {
     <div className="app-container">
       <div className="globe-container">
 <h1 className="title">
-  <span className="pulse-dot" />
   <a
     href="https://deploy.workers.cloudflare.com/?url=https://github.com/sudo-self/visitor_globe_worker"
     target="_blank"
@@ -95,7 +94,9 @@ function App() {
 
         {counter > 0 ? (
           <p className="counter">
-            <span className="highlight">{counter}</span> {counter === 1 ? "person is" : "people are"} connected right now
+            <span className="highlight">{counter}</span> 
+              <span className="pulse-dot" />
+            {counter === 1 ? "person is" : "people are"} connected right now
           </p>
         ) : (
           <p className="counter-placeholder">&nbsp;</p>

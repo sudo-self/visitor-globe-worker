@@ -25,7 +25,6 @@ body {
   padding: 20px;
 }
 
-/* Main container */
 .app-container {
   width: 100%;
   max-width: 800px;
@@ -36,7 +35,6 @@ body {
   padding: 0;
 }
 
-/* Globe container */
 .globe-container {
   width: 100%;
   display: flex;
@@ -47,27 +45,31 @@ body {
 .canvas-wrapper {
   position: relative;
   width: 100%;
-  max-width: 600px;
+  max-width: min(100vw, 600px);
   margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.canvas-wrapper:hover {
+  transform: scale(1.02);
 }
 
 .globe-canvas {
   width: 100%;
   height: auto;
+  aspect-ratio: 1;
   display: block;
-  transition: transform 0.3s ease;
+  margin: 0 auto;
+  border-radius: 50%;
+  box-shadow: 0 0 50px rgba(255, 159, 28, 0.2);
+  transition: all 0.3s ease;
+  cursor: grab;
 }
 
-.canvas-wrapper.hovered .globe-canvas {
-  transform: scale(1.02);
+.canvas-wrapper:hover .globe-canvas {
+  box-shadow: 0 0 70px rgba(255, 159, 28, 0.4);
 }
 
-/* Add this to prevent layout shift */
-.counter, .counter-placeholder {
-  min-height: 1.5em;
-}
-
-/* Text elements */
 .title {
   font-size: clamp(1.8rem, 5vw, 2.5rem);
   margin-bottom: 1rem;
@@ -77,23 +79,80 @@ body {
   background-clip: text;
   color: transparent;
   animation: pulseScale 2s infinite alternate;
+  position: relative;
+}
+
+.pulse-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--highlight-color);
+  border-radius: 50%;
+  margin-left: 10px;
+  filter: drop-shadow(0 0 4px var(--highlight-color));
+  animation: pulse 2s infinite;
 }
 
 .counter {
   font-size: clamp(1rem, 3vw, 1.2rem);
   margin: 1rem 0;
   text-align: center;
+  animation: fadeIn 0.5s ease-out;
 }
 
-/* Footer */
+.counter-placeholder {
+  height: clamp(1rem, 3vw, 1.2rem);
+  margin: 1rem 0;
+  visibility: hidden;
+}
+
+.highlight {
+  color: var(--highlight-color);
+  font-weight: 600;
+  font-size: 1.4em;
+}
+
+.connection-notice {
+  background: rgba(0, 78, 137, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+  border: 1px solid rgba(0, 78, 137, 0.5);
+  margin-top: 1rem;
+  animation: fadeInOut 3s forwards;
+  max-width: 90%;
+}
+
 .footer {
   margin-top: 2rem;
   text-align: center;
   font-size: clamp(0.8rem, 2.5vw, 0.9rem);
   color: rgba(255, 255, 255, 0.7);
+  transition: opacity 0.3s ease;
 }
 
-/* Animations */
+.footer:hover {
+  opacity: 1;
+}
+
+.footer a {
+  color: var(--highlight-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.hint {
+  font-size: clamp(0.7rem, 2vw, 0.8rem);
+  margin-top: 0.5rem;
+  opacity: 0.6;
+  font-style: italic;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -104,7 +163,19 @@ body {
   100% { transform: scale(1.02); }
 }
 
-/* Mobile adjustments */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(10px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
 @media (max-width: 600px) {
   body {
     padding: 10px;
@@ -112,5 +183,17 @@ body {
   
   .globe-canvas {
     max-width: 100vw;
+  }
+  
+  .title {
+    margin-bottom: 0.8rem;
+  }
+  
+  .counter, .counter-placeholder {
+    margin: 0.8rem 0;
+  }
+  
+  .footer {
+    margin-top: 1.5rem;
   }
 }

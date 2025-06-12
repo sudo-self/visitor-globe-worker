@@ -88,7 +88,7 @@ function App() {
     <div className="app-container">
       <div className="globe-container">
         <h1 className="title">
-          Global Connections
+          JesseJesse.com
           <span className="pulse-dot" />
         </h1>
 

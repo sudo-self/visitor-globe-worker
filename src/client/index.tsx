@@ -3,92 +3,74 @@ import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import createGlobe from "cobe";
 import usePartySocket from "partysocket/react";
-
-interface Position {
-  location: [number, number];
-  size: number;
-}
-
-interface OutgoingMessage {
-  type: string;
-  id?: string;
-  position?: {
-    id: string;
-    lat: number;
-    lng: number;
-  };
-}
+import type { OutgoingMessage } from "../shared";
+import type { LegacyRef } from "react";
 
 function App() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>();
   const [counter, setCounter] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [recentConnection, setRecentConnection] = useState<string | null>(null);
   
-  const positions = useRef<Map<string, Position>>(new Map());
+  const positions = useRef<
+    Map<
+      string,
+      {
+        location: [number, number];
+        size: number;
+      }
+    >
+  >(new Map());
 
   const socket = usePartySocket({
     room: "default",
-    host: "https://visitor-globe-worker.jessejesse.workers.dev",
+    party: "globe",
     onMessage(evt) {
-      try {
-        const message = JSON.parse(evt.data) as OutgoingMessage;
-        if (message.type === "add-marker" && message.position) {
-          positions.current.set(message.position.id, {
-            location: [message.position.lat, message.position.lng],
-            size: message.position.id === socket.id ? 0.15 : 0.08,
-          });
-          setCounter((c) => c + 1);
-          setRecentConnection(message.position.id);
-          setTimeout(() => setRecentConnection(null), 3000);
-        } else if (message.id) {
-          positions.current.delete(message.id);
-          setCounter((c) => c - 1);
-        }
-      } catch (error) {
-        console.error("Error parsing message:", error);
+      const message = JSON.parse(evt.data as string) as OutgoingMessage;
+      if (message.type === "add-marker") {
+        positions.current.set(message.position.id, {
+          location: [message.position.lat, message.position.lng],
+          size: message.position.id === socket.id ? 0.15 : 0.08,
+        });
+        setCounter((c) => c + 1);
+        setRecentConnection(message.position.id);
+        setTimeout(() => setRecentConnection(null), 3000);
+      } else {
+        positions.current.delete(message.id);
+        setCounter((c) => c - 1);
       }
     },
   });
 
   useEffect(() => {
-    if (!canvasRef.current) return;
-
     let phi = 0;
     let rotationSpeed = 0.01;
-    let globe: ReturnType<typeof createGlobe>;
 
-    const initGlobe = () => {
-      globe = createGlobe(canvasRef.current!, {
-        devicePixelRatio: 2,
-        width: 600 * 2,
-        height: 600 * 2,
-        phi: 0,
-        theta: 0.3,
-        dark: 1,
-        diffuse: 1.2,
-        mapSamples: 20000,
-        mapBrightness: 8,
-        baseColor: [0.2, 0.2, 0.25],
-        markerColor: [1, 0.5, 0.3],
-        glowColor: [0.8, 0.8, 0.8],
-        markers: [],
-        opacity: 0.9,
-        onRender: (state) => {
-          state.markers = Array.from(positions.current.values());
-          rotationSpeed = isHovered ? 0.005 : 0.01;
-          phi += rotationSpeed;
-          state.theta = 0.3 + Math.sin(phi * 2) * 0.05;
-          state.phi = phi;
-        },
-      });
-    };
+    const globe = createGlobe(canvasRef.current as HTMLCanvasElement, {
+      devicePixelRatio: 2,
+      width: 600 * 2,
+      height: 600 * 2,
+      phi: 0,
+      theta: 0.3,
+      dark: 1,
+      diffuse: 1.2,
+      mapSamples: 20000,
+      mapBrightness: 8,
+      baseColor: [0.2, 0.2, 0.25],
+      markerColor: [1, 0.5, 0.3],
+      glowColor: [0.8, 0.8, 0.8],
+      markers: [],
+      opacity: 0.9,
+      onRender: (state) => {
+        state.markers = [...positions.current.values()];
+        rotationSpeed = isHovered ? 0.005 : 0.01;
+        phi += rotationSpeed;
+        state.theta = 0.3 + Math.sin(phi * 2) * 0.05;
+        state.phi = phi;
+      },
+    });
 
-    initGlobe();
-
-    return () => {
-      if (globe) globe.destroy();
-    };
+    return () => globe.destroy();
   }, [isHovered]);
 
   return (
@@ -108,15 +90,13 @@ function App() {
         )}
 
         <div 
-          className={`canvas-wrapper ${isHovered ? "hovered" : ""}`}
+          className="canvas-wrapper"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           <canvas
-            ref={canvasRef}
+            ref={canvasRef as LegacyRef<HTMLCanvasElement>}
             className="globe-canvas"
-            width={1200}
-            height={1200}
           />
         </div>
 
@@ -128,7 +108,7 @@ function App() {
 
         <div className="footer">
           <p>
-            Powered by <a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener noreferrer">JesseJesse.Workers.dev</a>
+            Powered by <a href="https://visitor-globe-worker.jessejesse.workers.dev/" target="_blank" rel="noopener">JesseJesse.Workers.dev</a>
           </p>
           <p className="hint">Hover over the globe to slow rotation</p>
         </div>
@@ -137,15 +117,7 @@ function App() {
   );
 }
 
-// Render the app
-const container = document.getElementById('root');
-if (container) {
-  const root = createRoot(container);
-  root.render(<App />);
-}
-
-
-
+createRoot(document.getElementById("root")!).render(<App />);
 
 
 

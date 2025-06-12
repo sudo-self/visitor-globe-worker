@@ -84,11 +84,11 @@ function App() {
     return () => globe.destroy();
   }, [isHovered]);
 
-  return (
+ return (
     <div className="app-container">
       <div className="globe-container">
         <h1 className="title">
-          JesseJesse.com
+          Global Connections
           <span className="pulse-dot" />
         </h1>
 
@@ -100,11 +100,7 @@ function App() {
           <p className="counter-placeholder">&nbsp;</p>
         )}
 
-        <div
-          className={`globe-wrapper ${isHovered ? 'hovered' : ''}`}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
+        <div className="canvas-wrapper">
           <canvas
             ref={canvasRef as LegacyRef<HTMLCanvasElement>}
             className="globe-canvas"
@@ -128,4 +124,12 @@ function App() {
   );
 }
 
-createRoot(document.getElementById("root")!).render(<App />);
+
+
+
+
+
+
+
+
+
